@@ -13,8 +13,7 @@ const addUser = useMutation(api.users.add)
         <UserButton />
         <OrganizationSwitcher hidePersonal/>
         <Button onClick={()=> addUser()}>Add</Button>
-        <div className="max-w-sm w-full max-auto"></div>
-        {JSON.stringify(users)}
+        
       </div>
    
   </div>
