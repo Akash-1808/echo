@@ -1,7 +1,8 @@
 import { query,mutation } from "./_generated/server"
+
 export const getMany = query({
     args: {},
-    handler: async (ctx) => {
+    handler: async (ctx:any) => {
         const users = await ctx.db.query("user").collect(); 
 
         return users;
@@ -13,7 +14,7 @@ export const add =  mutation({
     args: {
         
     },
-    handler: async (ctx) => {
+    handler: async (ctx:any) => {
         const identity = await ctx.auth.getUserIdentity();
 
         if (!identity) {
@@ -26,7 +27,7 @@ export const add =  mutation({
             throw new Error("No organization found");
         }
 
-        throw new Error("Error tracking test")
+        
 
         const userId = await ctx.db.insert("user", {
             name: "Akash",
