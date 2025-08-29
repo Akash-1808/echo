@@ -120,6 +120,9 @@ export const DashboardSidebar = () => {
                         <SidebarMenuItem key={i.title}>
                             <SidebarMenuButton asChild
                             tooltip={i.title}
+                            className={cn(
+                                isActive(i.url) && "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]"
+                            )}
                             isActive={isActive(i.url)}>
                                 <Link href={i.url}>
                                     <i.icon className="size-4" />
@@ -143,6 +146,9 @@ export const DashboardSidebar = () => {
                         <SidebarMenuItem key={i.title}>
                             <SidebarMenuButton asChild
                             tooltip={i.title}
+                             className={cn(
+                                isActive(i.url) && "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]"
+                            )}
                             isActive={isActive(i.url)}>
                                 <Link href={i.url}>
                                     <i.icon className="size-4" />
@@ -166,6 +172,9 @@ export const DashboardSidebar = () => {
                         <SidebarMenuItem key={i.title}>
                             <SidebarMenuButton asChild
                             tooltip={i.title}
+                             className={cn(
+                                isActive(i.url) && "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]"
+                            )}
                             isActive={isActive(i.url)}>
                                 <Link href={i.url}>
                                     <i.icon className="size-4" />
