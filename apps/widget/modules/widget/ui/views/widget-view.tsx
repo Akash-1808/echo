@@ -5,6 +5,8 @@ import { useAtomValue } from "jotai";
 import { WidgetAuthScreen } from "@/modules/widget/ui/screens/widget-auth-screen";
 import { screenAtom } from "@/modules/widget/atoms/widget-atoms";
 import { error } from "console";
+import { WidgetErrorScreen } from "@/modules/widget/ui/screens/widget-error-screen";
+import { WidgeLoadingScreen } from "@/modules/widget/ui/screens/widget-loading-screen";
 // import { WidgetHeader } from "../components/widget-header";
 
 
@@ -16,8 +18,8 @@ export const WidgetView = ({ organizationId }: Props) => {
     const screen = useAtomValue(screenAtom);
 
     const screenComponent = {
-        error: <p>TODO: Error </p>,
-        loading: <p>TODO: Loading </p>,
+        error: <WidgetErrorScreen />,
+        loading: <WidgeLoadingScreen organizationId={organizationId} />,
         selection: <p>TODO: Selection </p>,
         voice: <p>TODO: Voice </p>,
         auth: <WidgetAuthScreen />,
@@ -28,12 +30,7 @@ export const WidgetView = ({ organizationId }: Props) => {
     return (
         //TODO: Confirm whether or not "min-h-screen" and "min-w-screen" is needed
         <main className="min-h-screen min-w-screen flex h-full w-full flex-col overflow-hidden rounded-xl border bg-muted">
-           
-            
-                {screenComponent[screen]}
-            
-           
-            
+            {screenComponent[screen]}
         </main>
     )
 }
