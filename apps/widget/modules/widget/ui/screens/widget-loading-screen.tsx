@@ -11,6 +11,7 @@ import { api } from "@workspace/backend/_generated/api";
 type InitStep = "storage" | "org" | "user" | "session" | "settings" | "vapi" | "done";
 
 export const WidgeLoadingScreen = ({ organizationId } : { organizationId : string | null}) => {
+    console.log("Render Loading Screen")
 
     const [step, setStep] = useState<InitStep>("org");
     const [sessionValid, setSessionValid] = useState<boolean>(false);
@@ -42,6 +43,7 @@ export const WidgeLoadingScreen = ({ organizationId } : { organizationId : strin
         .then((result)=>{
             if(result.valid){
                 setOrganizationId(organizationId);
+                setStep("session")
             } else {
                 setErrorMessage(result.reason || "Invalid Organization")
                 setScreen("error");
@@ -67,6 +69,7 @@ export const WidgeLoadingScreen = ({ organizationId } : { organizationId : strin
         //Step 2: Validate session
         const validateContactSession = useMutation(api.public.contactSession.validate)
     useEffect(()=>{
+        console.log("INSIDE STEP 2")
         if(step !== "session"){
             return;
         }
@@ -82,6 +85,7 @@ export const WidgeLoadingScreen = ({ organizationId } : { organizationId : strin
         setLoadingMessage("Validating session...");
 
         validateContactSession({ contactSessionId }).then((result) => {
+            console.log(result.valid)
             setSessionValid(result.valid);
             setStep("done");
         }).catch(() => {

@@ -21,7 +21,7 @@ import { Languages } from "lucide-react";
 import { platform } from "os";
 import { Doc } from "@workspace/backend/_generated/dataModel";
 import { useAtomValue, useSetAtom } from "jotai";
-import { contactSessionIdAtomFamily, OrganizationIdAtom } from "../../atoms/widget-atoms";
+import { contactSessionIdAtomFamily, OrganizationIdAtom, screenAtom } from "../../atoms/widget-atoms";
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required"),
@@ -33,8 +33,9 @@ const organizationId = "123";
 const expiresAt = 2
 
 export const WidgetAuthScreen = () => {
+    console.log("Render Auth Screen")
 
-
+    const setScreen = useSetAtom(screenAtom)
     const organizationId = useAtomValue(OrganizationIdAtom)
     const setContactSessionId = useSetAtom(
         contactSessionIdAtomFamily(organizationId || "")
@@ -50,7 +51,7 @@ export const WidgetAuthScreen = () => {
     const createContextSession = useMutation(api.public.contactSession.create)
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        // console.log({values})
+        console.log({values})
         if(!organizationId){
             return;
         }
@@ -75,8 +76,7 @@ export const WidgetAuthScreen = () => {
             ...values,
             organizationId,
             metadata,
-        });
-        // console.log({contactSessionId})
+        });    
         setContactSessionId(contactSessionId);
     }
     return (

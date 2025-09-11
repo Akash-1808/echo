@@ -5,6 +5,7 @@ import { errorMessageAtom } from "@/modules/widget/atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
 
 export const WidgetErrorScreen = () => {
+    console.log("Render Error Screen")
     const errorMessage = useAtomValue(errorMessageAtom);
     return (
         <>

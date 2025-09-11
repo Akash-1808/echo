@@ -4,9 +4,10 @@ import { useAtomValue } from "jotai";
 // import { WidgetFooter } from "../components/widget-footer";
 import { WidgetAuthScreen } from "@/modules/widget/ui/screens/widget-auth-screen";
 import { screenAtom } from "@/modules/widget/atoms/widget-atoms";
-import { error } from "console";
 import { WidgetErrorScreen } from "@/modules/widget/ui/screens/widget-error-screen";
 import { WidgeLoadingScreen } from "@/modules/widget/ui/screens/widget-loading-screen";
+import { WidgetSelectionScreen } from "@/modules/widget/ui/screens/widget-selection-screen";
+import { WidgetChatScreen } from "@/modules/widget/ui/screens/widget-chat-screen";
 // import { WidgetHeader } from "../components/widget-header";
 
 
@@ -20,10 +21,10 @@ export const WidgetView = ({ organizationId }: Props) => {
     const screenComponent = {
         error: <WidgetErrorScreen />,
         loading: <WidgeLoadingScreen organizationId={organizationId} />,
-        selection: <p>TODO: Selection </p>,
+        selection: <WidgetSelectionScreen />,
         voice: <p>TODO: Voice </p>,
         auth: <WidgetAuthScreen />,
-        chat: <p>TODO: Chat </p>,
+        chat: <WidgetChatScreen />,
         inbox: <p>TODO: Inbox </p>,
         contact: <p>TODO: Contact </p>,
     }

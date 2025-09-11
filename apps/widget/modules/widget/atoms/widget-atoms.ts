@@ -4,8 +4,9 @@ import { WidgetScreen } from "@/modules/widget/types";
 import { CONTACT_SESSION_KEY } from "../constants";
 import { Id } from "@workspace/backend/_generated/dataModel";
 
-export const screenAtom = atom<WidgetScreen>("auth");
+export const screenAtom = atom<WidgetScreen>("loading");
 export const OrganizationIdAtom = atom<string | null>(null);
 export const errorMessageAtom = atom<string | null>(null);
 export const LoadingMessageAtom = atom<string | null>(null);
 export const contactSessionIdAtomFamily = atomFamily((organizationId: string) => atomWithStorage<Id<"contactSessions"> | null>(`${CONTACT_SESSION_KEY}_${organizationId}`, null ))
+export const conversationIdAtom = atom<Id<"conversations"> | null>(null);
