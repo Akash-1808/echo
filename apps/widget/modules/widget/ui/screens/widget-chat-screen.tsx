@@ -136,8 +136,8 @@ export const WidgetChatScreen = () => {
         <AIConversation>
             <AIConversationContent>
                 <InfiniteScrollTrigger 
-                canLoadmore={canLoadMore}
-                isLodingMore={isLoadingMore}
+                canLoadMore={canLoadMore}
+                isLoadingMore={isLoadingMore}
                 onLoadMore={handleLoadMore}
                 ref={topElementRef}
                 />

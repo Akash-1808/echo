@@ -2,37 +2,37 @@ import { Button } from "@workspace/ui/components/button";
 import { cn } from "@workspace/ui/lib/utils";
 
 interface InfiniteScrollTriggerProps {
-    canLoadmore: boolean;
-    isLodingMore: boolean;
+    canLoadMore: boolean;
+    isLoadingMore: boolean;
     onLoadMore: () => void;
-    loadmoreText?: string;
+    loadMoreText?: string;
     noMoreText?: string;
     className?: string;
     ref?: React.Ref<HTMLDivElement>
 };
 
 export const InfiniteScrollTrigger = ({
-    canLoadmore,
-    isLodingMore,
+    canLoadMore,
+    isLoadingMore,
     onLoadMore,
-    loadmoreText = "load more",
+    loadMoreText = "load more",
     noMoreText = "No more items",
     className,
     ref,
 }: InfiniteScrollTriggerProps) => {
-    let text = loadmoreText;
+    let text = loadMoreText;
 
 
-    if(isLodingMore) {
+    if(isLoadingMore) {
         text = "loading...";
-    } else if (!canLoadmore) {
+    } else if (!canLoadMore) {
         text = noMoreText;
     }
 
     return(
         <div className={cn("flex w-full justify-center py-2", className)} ref={ref}>
             <Button
-            disabled={!canLoadmore || isLodingMore}
+            disabled={!canLoadMore || isLoadingMore}
             onClick={onLoadMore}
             size={"sm"}
             variant={"ghost"}
