@@ -12,6 +12,9 @@ import { contactSessionIdAtomFamily, conversationIdAtom, OrganizationIdAtom, scr
 import { useAction, useQuery } from "convex/react";
 import { AIResponse } from "@workspace/ui/components/ai/response";
 import { api } from "@workspace/backend/_generated/api";
+import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
+import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar"
 import {
     AIConversation,
     AIConversationContent,
@@ -80,6 +83,12 @@ export const WidgetChatScreen = () => {
     }
 
 
+    const { topElementRef, handleLoadMore, canLoadMore, isLoadingMore } = useInfiniteScroll({
+        status: messages.status,
+        loadMore: messages.loadMore,
+        loadSize: 10,
+    });
+
      const form = useForm<z.infer<typeof formSchema>>(
         {
             resolver: zodResolver(formSchema),
@@ -126,6 +135,12 @@ export const WidgetChatScreen = () => {
         </WidgetHeader>
         <AIConversation>
             <AIConversationContent>
+                <InfiniteScrollTrigger 
+                canLoadmore={canLoadMore}
+                isLodingMore={isLoadingMore}
+                onLoadMore={handleLoadMore}
+                ref={topElementRef}
+                />
                 {toUIMessages(messages.results ?? []).map((message) => {
                     return (
                         <AIMessage from={message.role === "user" ? "user" : "assistant"}
@@ -133,6 +148,14 @@ export const WidgetChatScreen = () => {
                             <AIMessageContent>
                                 <AIResponse>{message.content}</AIResponse>
                             </AIMessageContent>
+                            {message.role === "assistant" && (
+                                <DicebearAvatar 
+                                // imageUrl="/logo.svg"
+                                seed="assistant"
+                                size={32}
+                                badgeImageUrl="/logo.svg"
+                                />
+                            )}
                         </AIMessage>
                     )
                 })}

@@ -28,12 +28,10 @@ const formSchema = z.object({
     email: z.string().email("Invalid email address")
 })
 
-//temporary
-const organizationId = "123";
-const expiresAt = 2
+
 
 export const WidgetAuthScreen = () => {
-    console.log("Render Auth Screen")
+   
 
     const setScreen = useSetAtom(screenAtom)
     const organizationId = useAtomValue(OrganizationIdAtom)
@@ -78,6 +76,7 @@ export const WidgetAuthScreen = () => {
             metadata,
         });    
         setContactSessionId(contactSessionId);
+        setScreen("selection");
     }
     return (
         <>
