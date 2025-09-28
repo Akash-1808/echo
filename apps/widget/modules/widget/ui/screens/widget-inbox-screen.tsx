@@ -4,9 +4,9 @@ import { formatDistanceToNow } from "date-fns";
 import { ArrowLeftIcon } from "lucide-react";
 import { contactSessionIdAtomFamily, conversationIdAtom, OrganizationIdAtom, screenAtom } from "@/modules/widget/atoms/widget-atoms";
 import { ConversationStatusIcon } from "@workspace/ui/components/conversation-status-icon"
-import { WidgetHeader } from "@/modules/widget/ui/components/widget-header.js";
-import { WidgetFooter } from "@/modules/widget/ui/components/widget-footer.jsx";
-import { Button } from "@workspace/ui/components/button.jsx";
+import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
+import { WidgetFooter } from "@/modules/widget/ui/components/widget-footer";
+import { Button } from "@workspace/ui/components/button";
 import { usePaginatedQuery } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
