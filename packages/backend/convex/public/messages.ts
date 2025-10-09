@@ -6,6 +6,7 @@ import { paginationOptsValidator } from "convex/server";
 import { resolveConversation } from "../system/ai/tools/resolveConversation";
 import { escalatedConversation } from "../system/ai/tools/escalateConversation.ts";
 import { saveMessage } from "@convex-dev/agent";
+import { search } from "../system/ai/tools/search";
 
 export const create = action({
     args: {
@@ -60,7 +61,8 @@ export const create = action({
             prompt: args.prompt,
             tools: {
                 resolveConversation,
-                escalatedConversation
+                escalatedConversation,
+                search
             }
         })
     }
