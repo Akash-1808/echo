@@ -1,9 +1,20 @@
+import { Organization } from "@clerk/backend";
 import {defineSchema, defineTable} from "convex/server";
 import { v } from "convex/values";
 import { platform } from "os";
 import { threadId } from "worker_threads";
 
 export default defineSchema({
+    plugins: defineTable({
+        organizationId: v.string(),
+        service: v.union(
+            v.literal("vapi")
+        ),
+        secretName: v.string()
+    })
+     .index("by_organization_id", ["organizationId"])
+     .index("by_organization_id_and_service", ["organizationId", "service"])
+    ,
     contactSessions: defineTable({
         name: v.string(),
         email: v.string(),
