@@ -75,6 +75,7 @@ export const WidgetChatScreen = () => {
         {initialNumItems: 10}
     );
 
+    
    
 
     const onBack = ()=> {
@@ -141,7 +142,7 @@ export const WidgetChatScreen = () => {
                 onLoadMore={handleLoadMore}
                 ref={topElementRef}
                 />
-                {toUIMessages(messages.results ?? []).map((message) => {
+                {toUIMessages(messages.results ?? [0])?.map((message) => {
                     return (
                         <AIMessage from={message.role === "user" ? "user" : "assistant"}
                         key={message.id}>
