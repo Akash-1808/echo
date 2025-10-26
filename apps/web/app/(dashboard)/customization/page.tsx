@@ -1,8 +1,9 @@
+import { CustomizationView } from "@/modules/customization/ui/view/customizeation-view"
 
 
 const Page = () => {
   return (
-    <div>Widget Customization</div>
+    <CustomizationView />
   )
 }
 

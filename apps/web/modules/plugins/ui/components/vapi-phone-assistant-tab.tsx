@@ -74,7 +74,7 @@ export const VapiAssistantsTab = () => {
                                         {assistant.model?.model || "Not configured"}
                                     </span>
                                 </TableCell>
-                                <TableCell className="w-500 px-6 py-4 ">
+                                <TableCell className="max-w-xs px-6 py-4 ">
                                     <span className="truncate text-muted-foreground text-sm">
                                         {assistant.firstMessage || "No greeting configured"}
                                     </span>
