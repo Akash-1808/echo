@@ -8,7 +8,7 @@ import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "../components/widget-header";
 import { ArrowLeftIcon, MenuIcon } from "lucide-react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { contactSessionIdAtomFamily, conversationIdAtom, OrganizationIdAtom, screenAtom } from "../../atoms/widget-atoms";
+import { contactSessionIdAtomFamily, conversationIdAtom, OrganizationIdAtom, screenAtom, widgetSettingsAtom } from "../../atoms/widget-atoms";
 import { useAction, useQuery } from "convex/react";
 import { AIResponse } from "@workspace/ui/components/ai/response";
 import { api } from "@workspace/backend/_generated/api";
@@ -39,7 +39,7 @@ import {
     AISuggestions
 } from "@workspace/ui/components/ai/suggestion"
 import { threadId } from "worker_threads";
-import { use } from "react";
+import { use, useMemo } from "react";
 
 const formSchema = z.object({
     message: z.string().min(1, "Message is required")
@@ -51,11 +51,25 @@ export const WidgetChatScreen = () => {
     console.log("Render Chat Screen")
     const setScreen = useSetAtom(screenAtom);
     const setConversationId = useSetAtom(conversationIdAtom)
+
+    const widgetSettings = useAtomValue(widgetSettingsAtom)
     const conversationId = useAtomValue(conversationIdAtom);
     const organizationId = useAtomValue(OrganizationIdAtom)
     const contactSessionId = useAtomValue(
         contactSessionIdAtomFamily(organizationId || "")
     )
+
+    const suggestions = useMemo(()=>{
+        if(!widgetSettings){
+            return [];
+        }
+
+        return Object.keys(widgetSettings.defaultSuggestions).map((key)=>{
+            return widgetSettings.defaultSuggestions[
+                key as keyof typeof widgetSettings.defaultSuggestions
+            ];
+        });
+    },[widgetSettings]) 
     const conversation = useQuery(
         api.public.conversation.getOne,
         contactSessionId && conversationId
@@ -164,6 +178,29 @@ export const WidgetChatScreen = () => {
         </AIConversation>
 
         {/** TODO: Add Suggestions */}
+        {toUIMessages(messages.results ?? [])?.length === 1 && (
+        <AISuggestions className="flex w-full flex-col items-end p-2">
+                {suggestions.map((suggestion)=>{
+                    if(!suggestion){
+                        return null;
+                    }
+                    return (
+                        <AISuggestion
+                        key={suggestion}
+                        onClick={()=>{
+                            form.setValue("message", suggestion,{
+                                shouldValidate: true,
+                                shouldDirty: true,
+                                shouldTouch: true,
+                            });
+                            form.handleSubmit(onSubmit)();
+                        }}
+                        suggestion={suggestion}/>
+                    )
+                   })}
+        </AISuggestions>
+        )}
+
         <Form {...form}>
                 <AIInput
                 className="rounded-none border-x-0 border-b-0"
