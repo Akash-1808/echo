@@ -1,5 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
-import { FormSchema } from "./customization-form";
+import { FormSchema } from "../../types";
 import { useVapiAssistants, useVapiPhoneNumbers } from "@/modules/plugins/hooks/use-vapi-data";
 import {
     Form,

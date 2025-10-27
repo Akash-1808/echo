@@ -59,7 +59,7 @@ export const WidgetSelectionScreen = () => {
                     </p>
                 </div>
         </WidgetHeader>
-        <div className="flex flex-1 flex-col items-center justify-center gap-y-4 p-4 text-muted-foreground">
+        <div className="flex flex-1 flex-col items-center gap-y-4 p-4 text-muted-foreground">
             <Button 
                   className="h-16 w-full justify-between bg-white pl-6 pr-6"
                   variant={"outline"}
