@@ -2,22 +2,24 @@
 
 import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "../components/widget-header";
-import { ChevronRightIcon, MessageSquareIcon } from "lucide-react";
+import { ChevronRightIcon, MessageSquareIcon, MicIcon, PhoneIcon } from "lucide-react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { contactSessionIdAtomFamily, conversationIdAtom, errorMessageAtom, OrganizationIdAtom, screenAtom } from "../../atoms/widget-atoms";
+import { contactSessionIdAtomFamily, conversationIdAtom, errorMessageAtom, hasVapiSecretsAtom, OrganizationIdAtom, screenAtom, widgetSettingsAtom } from "../../atoms/widget-atoms";
 import { useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { useState } from "react";
 import { WidgetFooter } from "../components/widget-footer";
 
 export const WidgetSelectionScreen = () => {
-    console.log("Render Selection Screen")
     const setScreen = useSetAtom(screenAtom);
     const organizationId = useAtomValue(OrganizationIdAtom);
     const contactSessionId = useAtomValue(
         contactSessionIdAtomFamily(organizationId || "")
     );
     const setErrorMessage = useSetAtom(errorMessageAtom);
+
+    const widgetSettings = useAtomValue(widgetSettingsAtom);
+    const hasVApiSecrets = useAtomValue(hasVapiSecretsAtom)
     const createContactSession = useMutation(api.public.conversation.create);
     const [isPending, setIsPending] = useState(false)
     const setConversationId = useSetAtom(conversationIdAtom);
@@ -47,6 +49,12 @@ export const WidgetSelectionScreen = () => {
        }
      }
 
+     const handleNewVoicecall = async () => {
+         setScreen("voice")
+     }
+     const handleCallUs = async () => {
+        setScreen("contact")
+     }
     return (
         <>
         <WidgetHeader >
@@ -70,6 +78,30 @@ export const WidgetSelectionScreen = () => {
                 </div>
                 <ChevronRightIcon />
             </Button>
+            {hasVApiSecrets && widgetSettings?.vapiSettings.assistantId && (
+                <Button 
+                  className="h-16 w-full justify-between bg-white pl-6 pr-6"
+                  variant={"outline"}
+                  onClick={handleNewVoicecall}>
+                <div className="flex items-center gap-x-3">
+                    <MicIcon className="size-4" />
+                    <span>Start Voice call</span>
+                </div>
+                <ChevronRightIcon />
+            </Button>
+            ) }
+            {hasVApiSecrets && widgetSettings?.vapiSettings.phoneNumber && (
+                <Button 
+                  className="h-16 w-full justify-between bg-white pl-6 pr-6"
+                  variant={"outline"}
+                  onClick={handleCallUs}>
+                <div className="flex items-center gap-x-3">
+                    <PhoneIcon className="size-4" />
+                    <span>Call us</span>
+                </div>
+                <ChevronRightIcon />
+            </Button>
+            ) }
         </div>
         <WidgetFooter />
         </>

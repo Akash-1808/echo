@@ -9,6 +9,8 @@ import { WidgeLoadingScreen } from "@/modules/widget/ui/screens/widget-loading-s
 import { WidgetSelectionScreen } from "@/modules/widget/ui/screens/widget-selection-screen";
 import { WidgetChatScreen } from "@/modules/widget/ui/screens/widget-chat-screen";
 import { WidgetInboxScreen } from "@/modules/widget/ui/screens/widget-inbox-screen";
+import { WidgetVoiceScreen } from "../screens/widget-voice-screen";
+import { WidgetContactScreen } from "../screens/widget-contact-screen";
 // import { WidgetHeader } from "../components/widget-header";
 
 
@@ -23,11 +25,11 @@ export const WidgetView = ({ organizationId }: Props) => {
         error: <WidgetErrorScreen />,
         loading: <WidgeLoadingScreen organizationId={organizationId} />,
         selection: <WidgetSelectionScreen />,
-        voice: <p>TODO: Voice </p>,
+        voice: <WidgetVoiceScreen />,
         auth: <WidgetAuthScreen />,
         chat: <WidgetChatScreen />,
         inbox: <WidgetInboxScreen />,
-        contact: <p>TODO: Contact </p>,
+        contact: <WidgetContactScreen />,
     }
     return (
         //TODO: Confirm whether or not "min-h-screen" and "min-w-screen" is needed
