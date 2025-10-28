@@ -1,7 +1,7 @@
 "use client"
 import { useAtomValue, useSetAtom } from "jotai";
 import { LoaderIcon } from "lucide-react";
-import { contactSessionIdAtomFamily, errorMessageAtom, LoadingMessageAtom, OrganizationIdAtom, screenAtom, widgetSettingsAtom } from "@/modules/widget/atoms/widget-atoms";
+import { contactSessionIdAtomFamily, errorMessageAtom, LoadingMessageAtom, OrganizationIdAtom, screenAtom, vapiSecretAtom, widgetSettingsAtom } from "@/modules/widget/atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
 import { useEffect, useState } from "react";
 import { useAction, useMutation, useQuery } from "convex/react";
@@ -21,7 +21,7 @@ export const WidgeLoadingScreen = ({ organizationId } : { organizationId : strin
     const setLoadingMessage = useSetAtom(LoadingMessageAtom);
     const setScreen = useSetAtom(screenAtom)
     const setWidgetSettings = useSetAtom(widgetSettingsAtom)
-
+    const setVapiSecret = useSetAtom(vapiSecretAtom)
     const contactSessionId = useAtomValue(contactSessionIdAtomFamily(organizationId || ""))
 
     // Step 1: Validate organization
@@ -117,7 +117,7 @@ export const WidgeLoadingScreen = ({ organizationId } : { organizationId : strin
         setLoadingMessage("Loading widget settings...");
         if(widgetSettings !== undefined && organizationId){
             setWidgetSettings(widgetSettings);
-            setStep("done");
+            setStep("vapi");
         }
     },[
         step,
@@ -125,6 +125,37 @@ export const WidgeLoadingScreen = ({ organizationId } : { organizationId : strin
         setStep,
         setWidgetSettings,
         setLoadingMessage
+    ])
+
+    /** Step 4: Load VAPI secret */
+
+    const getVapiSecret = useAction(api.public.secrets.getSecrets);
+    useEffect(()=>{
+        if(step !== "vapi" ){
+            return;
+        }
+        if(!organizationId){
+            setScreen("error")
+            setErrorMessage("Organization ID is required");
+            return;
+        }
+
+        setLoadingMessage("Loading voice features");
+        getVapiSecret({ organizationId })
+           .then((secrets) => {
+            setVapiSecret(secrets);
+            setStep("done")
+           }).catch(()=>{
+             setVapiSecret(null);
+             setStep("done")
+           })
+    },[
+        step,
+        getVapiSecret,
+        organizationId,
+        setVapiSecret,
+        setLoadingMessage,
+        setStep,
     ])
 
 
