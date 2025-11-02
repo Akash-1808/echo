@@ -1,8 +1,9 @@
+import { BillingView } from "@/modules/billing/ui/view/billing-view"
 
 
 const Page = () => {
   return (
-    <div>Plans & Billing</div>
+    <BillingView />
   )
 }
 
