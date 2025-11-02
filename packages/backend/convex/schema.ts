@@ -1,10 +1,13 @@
-import { Organization } from "@clerk/backend";
 import {defineSchema, defineTable} from "convex/server";
 import { v } from "convex/values";
-import { platform } from "os";
-import { threadId } from "worker_threads";
+
 
 export default defineSchema({
+    subcriptions: defineTable({
+        organizationId: v.string(),
+        status: v.string()
+    })
+      .index("by_organization_id", ["organizationId"]),
     widgetSettings: defineTable({
         organizationId: v.string(),
         greetMessage: v.string(),
