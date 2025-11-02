@@ -49,11 +49,20 @@ export const create = action({
             })
         }
 
+        await ctx.runMutation(internal.system.contactSession.refresh, {
+            contactSessionId: args.contactSessionId,
+        })
+
+        const subscriptions = await ctx.runQuery(internal.system.subscriptions.getByOrganizationId, {
+            organizationId: contactSession.organizationId,
+        })
+
+
         // TODO: Implement subscription check
         const shouldTriggerAgent = 
-            conversation.status === "unresolved";
+            conversation.status === "unresolved" && subscriptions?.status === "active";
 
-            if(shouldTriggerAgent) {
+            if (shouldTriggerAgent) {
 
         await supportAgent.generateText(ctx, {
             threadId: args.threadId,

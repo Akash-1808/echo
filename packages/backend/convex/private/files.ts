@@ -6,6 +6,7 @@ import rag from "../system/ai/rag"
 import { updateStatus } from "./conversation";
 import { Id } from "../_generated/dataModel";
 import { paginationOptsValidator } from "convex/server";
+import { internal } from "../_generated/api";
 
 
 function guessMimeType(filename: string, bytes: ArrayBuffer): string {
@@ -101,6 +102,18 @@ export const addFile = action({
                     });
                 }
 
+                const subscriptions = await ctx.runQuery(
+                    internal.system.subscriptions.getByOrganizationId, {
+                     organizationId: orgId,
+                      })
+                
+                      if (subscriptions?.status !== "active") {
+                        throw new ConvexError({
+                              code: "BAD_REQUEST",
+                              message: "Missing subscription",
+                            });
+                        }
+
                 const { bytes, filename, category } = args;
 
                 const mimeType = args.mimeType || guessMimeType(filename, bytes);
@@ -167,6 +180,16 @@ export const list = query({
                         message: "Organization not found",
                     })
                 }
+               const subscriptions = await ctx.runQuery(internal.system.subscriptions.getByOrganizationId, {
+                     organizationId: orgId,
+                      })
+                
+                      if (subscriptions?.status !== "active") {
+                        throw new ConvexError({
+                              code: "BAD_REQUEST",
+                              message: "Missing subscription",
+                            });
+                        }
 
                 const namespace = await rag.getNamespace(ctx, {
                     namespace: orgId,

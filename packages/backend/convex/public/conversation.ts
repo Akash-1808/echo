@@ -3,7 +3,7 @@ import { mutation, query } from "../_generated/server";
 import { threadId } from "worker_threads";
 import { supportAgent } from "../system/ai/agents/supportAgent";
 import { MessageDoc, saveMessage } from "@convex-dev/agent";
-import { components } from "../_generated/api";
+import { components, internal } from "../_generated/api";
 import { paginationOptsValidator } from "convex/server";
 
 export const getMany = query({
@@ -118,6 +118,10 @@ export const create = mutation({
             })
         }
 
+        await ctx.runMutation(internal.system.contactSession.refresh, {
+                    contactSessionId: args.contactSessionId,
+                })
+
         const widgetSettings = await ctx.db
             .query("widgetSettings")
             .withIndex("by_organization_id", (q)=>
@@ -135,6 +139,8 @@ export const create = mutation({
                 content: widgetSettings?.greetMessage || "Hello! How can I help you today?",
             }
         })
+
+        
 
         const conversationId = await ctx.db.insert("conversations", {
             contactSessionId: session._id,

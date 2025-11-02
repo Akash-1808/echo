@@ -32,6 +32,17 @@ export const enhanceResponse = action({
             });
         }
 
+        const subscriptions = await ctx.runQuery(internal.system.subscriptions.getByOrganizationId, {
+            organizationId: orgId,
+        })
+
+        if (subscriptions?.status !== "active") {
+            throw new ConvexError({
+                code: "BAD_REQUEST",
+                message: "Missing subscription",
+            });
+        }
+
         const response = await generateText({
             model: google.chat("gemini-2.5-flash"),
             messages: [
