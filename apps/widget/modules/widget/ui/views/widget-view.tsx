@@ -32,8 +32,7 @@ export const WidgetView = ({ organizationId }: Props) => {
         contact: <WidgetContactScreen />,
     }
     return (
-        //TODO: Confirm whether or not "min-h-screen" and "min-w-screen" is needed
-        <main className="min-h-screen min-w-screen flex h-full w-full flex-col overflow-hidden rounded-xl border bg-muted">
+        <main className="flex h-full w-full flex-col overflow-hidden rounded-xl border bg-muted">
             {screenComponent[screen]}
         </main>
     )

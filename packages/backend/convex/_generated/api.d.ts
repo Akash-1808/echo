@@ -11,6 +11,7 @@
 import type * as lib_extractTextContent from "../lib/extractTextContent.js";
 import type * as lib_secterts from "../lib/secterts.js";
 import type * as playground from "../playground.js";
+import type * as private_contactSession from "../private/contactSession.js";
 import type * as private_conversation from "../private/conversation.js";
 import type * as private_files from "../private/files.js";
 import type * as private_messages from "../private/messages.js";
@@ -53,6 +54,7 @@ declare const fullApi: ApiFromModules<{
   "lib/extractTextContent": typeof lib_extractTextContent;
   "lib/secterts": typeof lib_secterts;
   playground: typeof playground;
+  "private/contactSession": typeof private_contactSession;
   "private/conversation": typeof private_conversation;
   "private/files": typeof private_files;
   "private/messages": typeof private_messages;
