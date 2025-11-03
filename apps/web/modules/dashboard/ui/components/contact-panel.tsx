@@ -196,7 +196,7 @@ export const ContactPanel = () => {
                 {contactSession && (
                     <Accordion 
                     className="w-full rounded-none border-y"
-                    collapsible
+                    // collapsible
                     type="multiple"
                     >
                     {accordionSections.map((section)=>(
