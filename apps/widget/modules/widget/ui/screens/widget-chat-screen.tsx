@@ -18,7 +18,6 @@ import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar"
 import {
     AIConversation,
     AIConversationContent,
-    AIConversationScrollButton
 } from "@workspace/ui/components/ai/conversation"
 import {
     AIInput,
@@ -31,15 +30,13 @@ import {
 import {
     AIMessage,
     AIMessageContent,
-
 } from "@workspace/ui/components/ai/message"
 
 import {
     AISuggestion,
     AISuggestions
 } from "@workspace/ui/components/ai/suggestion"
-import { threadId } from "worker_threads";
-import { use, useMemo } from "react";
+import { useMemo } from "react";
 
 const formSchema = z.object({
     message: z.string().min(1, "Message is required")
@@ -89,8 +86,12 @@ export const WidgetChatScreen = () => {
         {initialNumItems: 10}
     );
 
-    
-   
+    const uiMessages: { id: string; role: "user" | "assistant" | "system"; content: string }[] =
+      toUIMessages(messages.results ?? []).map((m) => ({
+        id: (m as any).id ?? String((m as any)._id ?? ""),
+        role: (m as any).role ?? "assistant" ,
+        content: (m as any).content ?? (m as any).text ?? (m as any).body ?? "",
+      }));
 
     const onBack = ()=> {
         setConversationId(null);
@@ -156,14 +157,14 @@ export const WidgetChatScreen = () => {
                 onLoadMore={handleLoadMore}
                 ref={topElementRef}
                 />
-                {toUIMessages(messages.results ?? [0])?.map((message) => {
+                {uiMessages.map((messages) => {
                     return (
-                        <AIMessage from={message.role === "user" ? "user" : "assistant"}
-                        key={message.id}>
+                        <AIMessage from={messages.role === "user" ? "user" : "assistant"}
+                        key={messages.id}>
                             <AIMessageContent>
-                                <AIResponse>{message.content}</AIResponse>
+                                <AIResponse>{messages.content}</AIResponse>
                             </AIMessageContent>
-                            {message.role === "assistant" && (
+                            {messages.role === "assistant" && (
                                 <DicebearAvatar 
                                 // imageUrl="/logo.svg"
                                 seed="assistant"

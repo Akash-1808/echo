@@ -3,7 +3,6 @@
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import {
     CreditCardIcon,
-    icons,
     InboxIcon,
     LayoutDashboardIcon,
     LibraryBigIcon,
@@ -27,8 +26,6 @@ import {
     SidebarRail,
 } from "@workspace/ui/components/sidebar";
 import { cn } from "@workspace/ui/lib/utils";
-import { title } from "process";
-import { url } from "inspector";
 
 const customerSupportItems = [
     {

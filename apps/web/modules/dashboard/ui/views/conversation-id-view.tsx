@@ -50,11 +50,18 @@ export const ConversationIdView = ({
         conversationId,
     })
 
-    const messages = useThreadMessages(
+    const messages =  useThreadMessages(
         api.private.messages.getMany,
         conversation?.threadId ? { threadId: conversation.threadId} : "skip",
         { initialNumItems: 10 }
     );
+
+    const uiMessages: { id: string; role: "user" | "assistant" | "system"; content: string }[] =
+      toUIMessages(messages.results ?? []).map((m) => ({
+        id: (m as any).id ?? String((m as any)._id ?? ""),
+        role: (m as any).role ?? "assistant" ,
+        content: (m as any).content ?? (m as any).text ?? (m as any).body ?? "",
+      }));
 
     const {
         topElementRef,
@@ -165,7 +172,7 @@ return ( <div className="flex flex-col bg-muted">
          onLoadMore={handleLoadMore}
          ref={topElementRef}
         />
-        {toUIMessages(messages?.results ?? [] ).map((messages)=>(
+        {uiMessages.map((messages)=>(
             <AIMessage
             //In reverse, because we are watching from "assitant" prespective
             from={messages.role === "user" ? "assistant" : "user" }
