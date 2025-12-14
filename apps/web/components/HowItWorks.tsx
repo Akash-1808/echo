@@ -77,7 +77,7 @@ export default function HowItWorks(){
                     </div>
                 </div>
                 </div>
-                <div className="grid grid-cols-2 gap-6 mb-12">
+                <div className="grid  sm:grid-cols-2 gap-6 mb-12">
                     <div className="relative bg-card border-border border rounded-2xl p-6 hover:shadow-xs transition-all">
                     <div className="flex items-start gap-4 ">
                         <div className="flex-shrink-0 w-12 h-12 justify-center items-center rounded-md bg-[#426FC9] p-2.5">

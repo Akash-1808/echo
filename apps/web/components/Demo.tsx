@@ -1,5 +1,6 @@
 import { ArrowLeftIcon, ArrowRightIcon, CheckCircle2Icon, CheckCircleIcon } from "lucide-react";
 import Button from "./Button";
+import Link from "next/link";
 
 export default function Demo() {
     return (
@@ -8,7 +9,7 @@ export default function Demo() {
                 <div className="text-center mb-10">
                   <h2 className="text-3xl md:text-4xl font-poppins font-medium text-foreground mb-4">Start Building Better Customer Support</h2>
                   <p className="text-2xl text-muted-foreground">Get started with our modern customer support platform. Free to start, no credit card required.</p>
-                  <a href="/conversations"><Button className="text-white gap-2 py-5 px-12 mt-12">Get Started Free <ArrowRightIcon className="text-white"/></Button></a>
+                  <Link href="/conversations"><Button className="text-white gap-2 py-5 px-12 mt-12">Get Started Free <ArrowRightIcon className="text-white"/></Button></Link>
                 </div>
                 <div className="flex-wrap flex items-center justify-center gap-8 pt-12 text-md text-muted-foreground">
                     <div className="flex items-center gap-2">
