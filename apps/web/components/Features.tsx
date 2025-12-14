@@ -5,10 +5,10 @@ export default function Features() {
         <section id="features" className="relative max-h-fit">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <div className="flex flex-col justify-center items-center mb-12">
-                    <h1 className="text-4xl font-bold">Simple, Powerful Features</h1>
+                    <h1 className="text-4xl font-bold text-center">Simple, Powerful Features</h1>
                     <p className="text-center text-muted-foreground">Everything you need to provide great customer support, without the complexity</p>
                 </div>
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 mb-12">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 mb-12">
                     <div className="group relative bg-card p-4 rounded-2xl flex flex-col items-start gap-4 hover:border-primary transition-all duration-300 hover:shadow-xs opacity-100 translate-y-0">
                         <div className="relative group-hover:scale-105 transition-transform duration-300 w-12 h-12 justify-center items-center rounded-md bg-none p-2.5 border border-[#426FC9]">
                             <ZapIcon className="text-[#426FC9] h-full w-full " />

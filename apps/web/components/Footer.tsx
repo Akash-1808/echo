@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
     return (
@@ -9,16 +10,16 @@ export default function Footer() {
                        <h4 className="font-semibold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Product</h4>
                        <ul className="space-y-2 text-xs text-muted-foreground sm:text-sm">
                         <li>
-                            <a href="/#features" className="hover:text-primary transition-colors">Features</a>
+                            <Link href="/#features" className="hover:text-primary transition-colors">Features</Link>
                         </li>
                         <li>
-                            <a href="/integrations" className="hover:text-primary transition-colors">Integration</a>
+                            <Link href="/integrations" className="hover:text-primary transition-colors">Integration</Link>
                         </li>
                         <li>
-                            <a href="/conversations" className="hover:text-primary transition-colors">Dashboard</a>
+                            <Link href="/conversations" className="hover:text-primary transition-colors">Dashboard</Link>
                         </li>
                         <li>
-                            <a href="/billing" className="hover:text-primary transition-colors">Pricing</a>
+                            <Link href="/billing" className="hover:text-primary transition-colors">Pricing</Link>
                         </li>
                         </ul> 
                     </div>
