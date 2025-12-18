@@ -15,12 +15,7 @@ export default function Integration() {
                         <pre className="bg-muted/50 rounded-lg p-4 overflow-x-auto">
                           <code className="text-sm text-foreground">
                             {`<!-- Add before </body> --> 
-<script src="https://backend.chat/widget/dist/loader.min.js"></script>
- <script>
- window.BackendChat.init({
-    apiKey: 'your-api-key'
- });
- </script>`}
+<script src="https://echo-widget-rust.vercel.app/widget.js" data-organization-id="Your org id"></script>`}
                           </code>
                         </pre>
                     </div>
