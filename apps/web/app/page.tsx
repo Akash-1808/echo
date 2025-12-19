@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import Integration from "@/components/Integration";
 import Navbar from "@/components/Navbar";
+import Script from "next/script";
 
 export default function Page() {
     return (
