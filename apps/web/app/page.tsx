@@ -9,6 +9,11 @@ import Navbar from "@/components/Navbar";
 export default function Page() {
     return (
         <div className="relative " style={{ scrollBehavior: "smooth"}}>
+            <Script
+          src="https://echo-widget-rust.vercel.app/widget.js"
+          data-organization-id="org_31jTXdDXd7zomyLjOjuz03MfLqg"
+          strategy="afterInteractive" 
+        />
         <Navbar />
         <Hero />
         <HowItWorks />
